@@ -5,10 +5,14 @@ var db = mongojs('mytasklist', ['tasks']);
 
 //Get All Tasks
 router.get('/tasks', function (req, res, next) {
+   
     db.tasks.find(function (err, tasks) {
         if (err) {
             res.send(err);
         }
+        //res.header('Authorization' , 'Bearer ' + jwt.sign({}, 'secret'));
+        res.header('X-Authorization' , 'Bearer ');
+        
         res.json(tasks);
     });
 });
