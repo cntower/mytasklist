@@ -13,14 +13,37 @@ var platform_browser_1 = require('@angular/platform-browser');
 var http_1 = require('@angular/http');
 var forms_1 = require('@angular/forms');
 var app_component_1 = require('./app.component');
+var app_routing_1 = require('./app.routing');
 var tasks_component_1 = require('./components/tasks/tasks.component');
+var auth_guard_1 = require('./guards/auth.guard');
+var authentification_service_1 = require('./services/authentification.service');
+var task_service_1 = require('./services/task.service');
+var login_component_1 = require('./components/login/login.component');
+var register_component_1 = require('./components/register/register.component');
+var home_component_1 = require('./components/home/home.component');
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, http_1.HttpModule, forms_1.FormsModule],
-            declarations: [app_component_1.AppComponent, tasks_component_1.TasksComponent],
+            imports: [
+                platform_browser_1.BrowserModule,
+                forms_1.FormsModule,
+                http_1.HttpModule,
+                app_routing_1.routing
+            ],
+            declarations: [
+                app_component_1.AppComponent,
+                login_component_1.LoginComponent,
+                register_component_1.RegisterComponent,
+                tasks_component_1.TasksComponent,
+                home_component_1.HomeComponent
+            ],
+            providers: [
+                auth_guard_1.AuthGuard,
+                authentification_service_1.AuthenticationService,
+                task_service_1.TaskService
+            ],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])

@@ -13,6 +13,7 @@
   "author": "cntower",
   "license": "ISC",
   "dependencies": {
+    "angular2-jwt": "^0.1.25",
     "bcrypt": "^0.8.7",
     "body-parser": "^1.15.2",
     "ejs": "^2.5.2",

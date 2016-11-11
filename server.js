@@ -14,6 +14,9 @@ var User = require('./app/models/user');
 var index = require('./routes/index');
 var task = require('./routes/tasks');
 
+var register = require('./routes/register');
+var login = require('./routes/login');
+
 var mongojs = require('mongojs');
 var db = mongojs('mytasklist', ['tasks']);
 
@@ -25,15 +28,15 @@ var port = 3000;
 app.use('/api', expressJWT({secret:'secret'}));
 */
 
-//View Engine
+// View Engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 
-//Set Static Foloder
+// Set Static Foloder
 app.use(express.static(path.join(__dirname, 'client')));
 
-//Body Parser
+// Body Parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -52,59 +55,23 @@ require('./config/passport')(passport);
 // Create API group routes
 var apiRoutes = express.Router();
 
-// Register new users
-apiRoutes.post('/register', function (req, res) {
-    if (!req.body.email || !req.body.password) {
-        res.json({ success: false, message: 'Please enter an email and password to register.' })
-    } else {
-        var newUser = new User({
-            email: req.body.email,
-            password: req.body.password
-        });
-    }
-
-    // Attempt to save the new user
-    newUser.save(function (err) {
-        if (err) {
-            res.json({ success: false, message: 'That email address already exists.' })
-        } else {
-            res.json({ success: true, message: 'Successfully created new user.' })
-        }
-    })
-})
-
-// Autentificate the user and get a jwt
-apiRoutes.post('/authenticate', function (req, res) {
-    User.findOne({ email: req.body.email }, function (err, user) {
-        if (err) throw err;
-        if (!user) {
-            res.send({ success: false, message: 'Autentification failed. User not found.' })
-        } else {
-            // Check if the password mathes
-            user.comparePassword(req.body.password, function (err, isMatch) {
-                if (isMatch && !err) {
-                    //Create the token
-                    var token = jwt.sign(user, config.secret, {
-                        expiresIn: 10080 //in seconds
-                    })
-                    res.json({ success: true, token: 'JWT ' + token })
-                } else {
-                    res.send({ success: false, message: 'Autentification failed. Password did not match.' })
-                }
-            })
-        }
-    })
-})
-
-apiRoutes.get('/dashboard', passport.authenticate('jwt', {session:false}),function(req,res){
-    res.send('It worked! User id is: '+req.user._id+'.');
+apiRoutes.get('/dashboard', passport.authenticate('jwt', { session: false }), function (req, res) {
+    res.send('It worked! User id is: ' + req.user._id + '.');
 })
 
 // Set url for API group routes
 app.use('/api', apiRoutes);
+app.use('/auth', apiRoutes);
 
 app.use('/', index);
 app.use('/api', task);
+
+app.use('/auth', register);
+app.use('/auth', login);
+
+app.use('/login', index);
+app.use('/register', index);
+
 
 app.listen(port, function () {
     console.log('Server started on port ' + port);
@@ -115,5 +82,26 @@ db.tasks.count(function (err, result) {
         var parsedJSON = require('./tasks.collection');
         console.log(parsedJSON);
         db.tasks.insert(parsedJSON);
+    }
+});
+
+User.findOne({ role: 'Admin' }, function (err, result) {
+    if (!result) {
+        {
+            var newUser = new User({
+                email: config.admin.email,
+                password: config.admin.password,
+                role: config.admin.role
+            });
+
+            // Attempt to save the new admin
+            newUser.save(function (err) {
+                if (err) {
+                    if (err) throw err;
+                } else {
+                    console.log('Successfully created new admin.')
+                }
+            })
+        }
     }
 });
