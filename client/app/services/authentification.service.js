@@ -15,6 +15,8 @@ require('rxjs/add/operator/map');
 var AuthenticationService = (function () {
     function AuthenticationService(http) {
         this.http = http;
+        this.currentUserEmail = '';
+        this.currentUserPassword = '';
         // set token if saved in local storage
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.token = currentUser && currentUser.token;
@@ -42,25 +44,11 @@ var AuthenticationService = (function () {
         });
     };
     AuthenticationService.prototype.register = function (email, password) {
-        var _this = this;
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
         return this.http.post('/auth/register', JSON.stringify({ email: email, password: password }), { headers: headers })
             .map(function (response) {
-            // login successful if there's a jwt token in the response
-            var token = response.json() && response.json().token;
-            if (token) {
-                // set token property
-                _this.token = token;
-                // store username and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('currentUser', JSON.stringify({ email: email, token: token }));
-                // return true to indicate successful login
-                return true;
-            }
-            else {
-                // return false to indicate failed login
-                return false;
-            }
+            return response.json();
         });
     };
     AuthenticationService.prototype.authenticated = function () {

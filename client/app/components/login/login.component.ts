@@ -18,7 +18,12 @@ export class LoginComponent implements OnInit {
         private authenticationService: AuthenticationService) { }
  
     ngOnInit() {
-        // reset login status
+        // set register data in model
+        this.model.email = this.authenticationService.currentUserEmail;
+        this.model.password = this.authenticationService.currentUserPassword;
+        this.authenticationService.currentUserEmail = '';
+        this.authenticationService.currentUserPassword = '';
+        //reset login status
         this.authenticationService.logout();
     }
  

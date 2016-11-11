@@ -20,7 +20,12 @@ var LoginComponent = (function () {
         this.error = '';
     }
     LoginComponent.prototype.ngOnInit = function () {
-        // reset login status
+        // set register data in model
+        this.model.email = this.authenticationService.currentUserEmail;
+        this.model.password = this.authenticationService.currentUserPassword;
+        this.authenticationService.currentUserEmail = '';
+        this.authenticationService.currentUserPassword = '';
+        //reset login status
         this.authenticationService.logout();
     };
     LoginComponent.prototype.login = function () {

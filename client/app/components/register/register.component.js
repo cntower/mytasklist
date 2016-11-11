@@ -28,13 +28,21 @@ var RegisterComponent = (function () {
         this.loading = true;
         this.authenticationService.register(this.model.email, this.model.password)
             .subscribe(function (result) {
-            if (result === true) {
-                // login successful
-                _this.router.navigate(['/']);
+            if (result) {
+                if (result.success === true) {
+                    // register successful
+                    _this.authenticationService.currentUserEmail = _this.model.email;
+                    _this.authenticationService.currentUserPassword = _this.model.password;
+                    _this.router.navigate(['/login']);
+                }
+                else {
+                    _this.error = result.message;
+                    _this.loading = false;
+                }
             }
             else {
-                // login failed
-                _this.error = 'Username or password is incorrect';
+                // register failed
+                _this.error = 'Something went wrong. Try again later.';
                 _this.loading = false;
             }
         });
