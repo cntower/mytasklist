@@ -50,7 +50,7 @@ export class AuthenticationService {
 
     public authenticated() {
         // Check if there's an unexpired JWT
-        return tokenNotExpired();
+        return tokenNotExpired(null, this.token);
     };
 
     logout(): void {

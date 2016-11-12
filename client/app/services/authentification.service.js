@@ -53,7 +53,7 @@ var AuthenticationService = (function () {
     };
     AuthenticationService.prototype.authenticated = function () {
         // Check if there's an unexpired JWT
-        return angular2_jwt_1.tokenNotExpired();
+        return angular2_jwt_1.tokenNotExpired(null, this.token);
     };
     ;
     AuthenticationService.prototype.logout = function () {

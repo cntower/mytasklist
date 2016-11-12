@@ -15,7 +15,7 @@ var index = require('./routes/index');
 var task = require('./routes/tasks');
 
 var register = require('./routes/register');
-var login = require('./routes/login');
+var authenticate = require('./routes/authenticate');
 
 var mongojs = require('mongojs');
 var db = mongojs('mytasklist', ['tasks']);
@@ -67,7 +67,7 @@ app.use('/', index);
 app.use('/api', task);
 
 app.use('/auth', register);
-app.use('/auth', login);
+app.use('/auth', authenticate);
 
 app.use('/login', index);
 app.use('/register', index);
