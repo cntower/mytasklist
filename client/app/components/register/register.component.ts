@@ -24,12 +24,12 @@ export class RegisterComponent implements OnInit {
 
     register() {
         this.loading = true;
-        this.authenticationService.register(this.model.email, this.model.password)
+        this.authenticationService.register(this.model.username, this.model.password)
             .subscribe(result => {
                 if (result) {
                     if (result.success === true) {
                         // register successful
-                        this.authenticationService.currentUserEmail = this.model.email;
+                        this.authenticationService.username = this.model.username;
                         this.authenticationService.currentUserPassword = this.model.password; 
                         this.router.navigate(['/login']);
                     } else {

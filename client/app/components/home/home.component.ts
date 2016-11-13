@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../../services/task.service';
+import { AuthenticationService } from '../../services/authentification.service';
 
 @Component({
   moduleId: module.id,
@@ -11,13 +12,9 @@ import { TaskService } from '../../services/task.service';
  
 export class HomeComponent implements OnInit {
  
-    //constructor(private userService: UserService) { }
+    constructor(private authenticationService: AuthenticationService) { }
  
     ngOnInit() {
-        // get users from secure api end point
-        // this.userService.getUsers()
-        //     .subscribe(users => {
-        //         this.users = users;
-        //     });
+        //console.log('ngOnInit', this.authenticationService.username);
     }
 }

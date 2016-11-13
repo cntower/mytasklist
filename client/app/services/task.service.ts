@@ -28,7 +28,7 @@ export class TaskService {
     deleteTask(id) {
         var headers = new Headers();
         headers.append( 'Authorization', this.authenticationService.token );
-        return this.http.delete('/api/task/' + id)
+        return this.http.delete('/api/task/' + id, { headers: headers })
             .map(res => res.json());
     }
 

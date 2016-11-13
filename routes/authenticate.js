@@ -7,7 +7,7 @@ var User = require('./../app/models/user');
 // Autentificate the user and get a jwt
 router.post('/authenticate', function (req, res) {
 
-    User.findOne({ email: req.body.email }, function (err, user) {
+    User.findOne({ username: req.body.username }, function (err, user) {
         if (err) throw err;
         if (!user) {
             res.send({ success: false, message: 'Autentification failed. User not found.' })

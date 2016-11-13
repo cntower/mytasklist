@@ -26,12 +26,12 @@ var RegisterComponent = (function () {
     RegisterComponent.prototype.register = function () {
         var _this = this;
         this.loading = true;
-        this.authenticationService.register(this.model.email, this.model.password)
+        this.authenticationService.register(this.model.username, this.model.password)
             .subscribe(function (result) {
             if (result) {
                 if (result.success === true) {
                     // register successful
-                    _this.authenticationService.currentUserEmail = _this.model.email;
+                    _this.authenticationService.username = _this.model.username;
                     _this.authenticationService.currentUserPassword = _this.model.password;
                     _this.router.navigate(['/login']);
                 }

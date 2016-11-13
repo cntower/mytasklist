@@ -10,16 +10,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var task_service_1 = require('../../services/task.service');
+var authentification_service_1 = require('../../services/authentification.service');
 var HomeComponent = (function () {
-    function HomeComponent() {
+    function HomeComponent(authenticationService) {
+        this.authenticationService = authenticationService;
     }
-    //constructor(private userService: UserService) { }
     HomeComponent.prototype.ngOnInit = function () {
-        // get users from secure api end point
-        // this.userService.getUsers()
-        //     .subscribe(users => {
-        //         this.users = users;
-        //     });
+        //console.log('ngOnInit', this.authenticationService.username);
     };
     HomeComponent = __decorate([
         core_1.Component({
@@ -28,7 +25,7 @@ var HomeComponent = (function () {
             templateUrl: 'home.component.html',
             providers: [task_service_1.TaskService]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [authentification_service_1.AuthenticationService])
     ], HomeComponent);
     return HomeComponent;
 }());

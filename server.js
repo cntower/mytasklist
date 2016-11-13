@@ -18,6 +18,19 @@ var authenticate = require('./routes/authenticate');
 var mongojs = require('mongojs');
 var db = mongojs(config.database, ['tasks']);
 
+/*
+var dbz = mongojs(config.database,[]);
+
+var users = dbz.collection('users');
+users.drop((e,r)=>{console.log('ssss:',e,r)});
+
+dbz.getCollectionNames(function(e, cols) {
+    cols.forEach(function(col) {
+        console.log(col);
+    });
+});
+*/
+
 var app = express();
 var port = 3000;
 
@@ -77,7 +90,7 @@ User.findOne({ role: 'Admin' }, function (err, result) {
     if (!result) {
         {
             var newUser = new User({
-                email: config.admin.email,
+                username: config.admin.username,
                 password: config.admin.password,
                 role: config.admin.role
             });

@@ -35,7 +35,7 @@ var TaskService = (function () {
     TaskService.prototype.deleteTask = function (id) {
         var headers = new http_1.Headers();
         headers.append('Authorization', this.authenticationService.token);
-        return this.http.delete('/api/task/' + id)
+        return this.http.delete('/api/task/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     TaskService.prototype.updateStatus = function (task) {

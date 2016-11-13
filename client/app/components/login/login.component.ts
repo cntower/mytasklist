@@ -19,9 +19,8 @@ export class LoginComponent implements OnInit {
  
     ngOnInit() {
         // set register data in model
-        this.model.email = this.authenticationService.currentUserEmail;
+        this.model.username = this.authenticationService.username;
         this.model.password = this.authenticationService.currentUserPassword;
-        this.authenticationService.currentUserEmail = '';
         this.authenticationService.currentUserPassword = '';
         //reset login status
         this.authenticationService.logout();
@@ -29,7 +28,7 @@ export class LoginComponent implements OnInit {
  
     login() {
         this.loading = true;
-        this.authenticationService.login(this.model.email, this.model.password)
+        this.authenticationService.login(this.model.username, this.model.password)
             .subscribe(result => {
                 if (result === true) {
                     // login successful
