@@ -30,4 +30,4 @@ $ npm start
 
 ## TODO
 
-Setting Up a Passport with JWT Authentication
+Create personal lists of tasks to users
