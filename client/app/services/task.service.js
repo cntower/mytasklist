@@ -11,34 +11,43 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 require('rxjs/add/operator/map');
+var authentification_service_1 = require('./../services/authentification.service');
 var TaskService = (function () {
-    function TaskService(http) {
+    function TaskService(http, authenticationService) {
         this.http = http;
-        console.log('Task Service Initialized...');
+        this.authenticationService = authenticationService;
+        //console.log('Task Service Initialized...');
     }
     TaskService.prototype.getTask = function () {
-        return this.http.get('/api/tasks')
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', this.authenticationService.token);
+        return this.http.get('/api/tasks', { headers: headers })
             .map(function (res) { return res.json(); });
     };
     TaskService.prototype.addTask = function (newTask) {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', this.authenticationService.token);
         return this.http.post('/api/task', JSON.stringify(newTask), { headers: headers })
             .map(function (res) { return res.json(); });
     };
     TaskService.prototype.deleteTask = function (id) {
+        var headers = new http_1.Headers();
+        headers.append('Authorization', this.authenticationService.token);
         return this.http.delete('/api/task/' + id)
             .map(function (res) { return res.json(); });
     };
     TaskService.prototype.updateStatus = function (task) {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', this.authenticationService.token);
         return this.http.put('/api/task/' + task._id, JSON.stringify(task), { headers: headers })
             .map(function (res) { return res.json(); });
     };
     TaskService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [http_1.Http, authentification_service_1.AuthenticationService])
     ], TaskService);
     return TaskService;
 }());

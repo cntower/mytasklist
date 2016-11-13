@@ -9,8 +9,6 @@ var jwt = require('jsonwebtoken');
 var config = require('./config/main');
 var User = require('./app/models/user');
 
-//var expressJWT = require('express-jwt');
-
 var index = require('./routes/index');
 var task = require('./routes/tasks');
 
@@ -18,15 +16,10 @@ var register = require('./routes/register');
 var authenticate = require('./routes/authenticate');
 
 var mongojs = require('mongojs');
-var db = mongojs('mytasklist', ['tasks']);
+var db = mongojs(config.database, ['tasks']);
 
 var app = express();
 var port = 3000;
-
-/*
-//jwt
-app.use('/api', expressJWT({secret:'secret'}));
-*/
 
 // View Engine
 app.set('views', path.join(__dirname, 'views'));
@@ -55,12 +48,9 @@ require('./config/passport')(passport);
 // Create API group routes
 var apiRoutes = express.Router();
 
-apiRoutes.get('/dashboard', passport.authenticate('jwt', { session: false }), function (req, res) {
-    res.send('It worked! User id is: ' + req.user._id + '.');
-})
-
 // Set url for API group routes
-app.use('/api', apiRoutes);
+// Set up JWT authentication
+app.use('/api', passport.authenticate('jwt', { session: false }), apiRoutes);
 app.use('/auth', apiRoutes);
 
 app.use('/', index);
@@ -72,7 +62,6 @@ app.use('/auth', authenticate);
 app.use('/login', index);
 app.use('/register', index);
 
-
 app.listen(port, function () {
     console.log('Server started on port ' + port);
 })
@@ -80,7 +69,6 @@ app.listen(port, function () {
 db.tasks.count(function (err, result) {
     if (result == 0) {
         var parsedJSON = require('./tasks.collection');
-        console.log(parsedJSON);
         db.tasks.insert(parsedJSON);
     }
 });

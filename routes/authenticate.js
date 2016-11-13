@@ -6,7 +6,7 @@ var User = require('./../app/models/user');
 
 // Autentificate the user and get a jwt
 router.post('/authenticate', function (req, res) {
-    
+
     User.findOne({ email: req.body.email }, function (err, user) {
         if (err) throw err;
         if (!user) {
@@ -15,9 +15,9 @@ router.post('/authenticate', function (req, res) {
             // Check if the password mathes
             user.comparePassword(req.body.password, function (err, isMatch) {
                 if (isMatch && !err) {
-                    //Create the token
+                    // Create the token
                     var token = jwt.sign(user, config.secret, {
-                        expiresIn: 60 //in seconds
+                        expiresIn: 600 // in seconds
                     })
                     res.json({ success: true, token: 'JWT ' + token })
                 } else {
