@@ -1,8 +1,30 @@
-<!-- main app container -->
-<div class="jumbotron">
-    <div class="container">
-        <div class="col-sm-8 col-sm-offset-2">
-            <router-outlet></router-outlet>
-        </div>
-    </div>
+<nav class="navbar navbar-inverse">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+				aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+			<a class="navbar-brand" href="#">mytasklist</a>
+		</div>
+		<div id="navbar" class="collapse navbar-collapse">
+			<ul class="nav navbar-nav">
+				<li><a routerLink="/">Home</a></li>
+			</ul>
+            <ul class="nav navbar-nav navbar-right">
+				<li><a routerLink="/login" *ngIf="!auth.authenticated()">Login</a></li>                
+				<li><a routerLink="/login" *ngIf="auth.authenticated()">Logout</a></li>
+                <li><a routerLink="/register" *ngIf="!auth.authenticated()">Register</a></li>
+			</ul>
+		</div>
+		<!--/.nav-collapse -->
+	</div>
+</nav>
+
+<div class="container">
+	<router-outlet></router-outlet>
 </div>
+<!-- /.container -->
