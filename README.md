@@ -1,8 +1,8 @@
 # mytasklist
-Simple task list (MEAN App From Scratch - MongoDB, Express, Angular 2 &amp; NodeJS)
+Task list for registered users. (MEAN, REST with JWT authentifikation)
 
 ### Version
-1.0.0
+1.2.0
 
 ### Installation
 
@@ -17,17 +17,13 @@ Start mongodb on local machine:
 $ mongod
 ```
 
-In other console start backend:
+Start backend:
 ```sh
 $ cd mytasklist
 $ npm start
 ```
-And one console for starting frontend:
+Start frontend:
 ```sh
 $ cd mytasklist/client/
 $ npm start
 ```
-
-## TODO
-
-Create personal lists of tasks to users
