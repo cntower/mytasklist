@@ -7,29 +7,14 @@ var morgan = require('morgan');
 var passport = require('passport');
 var jwt = require('jsonwebtoken');
 var config = require('./config/main');
-var User = require('./app/models/user');
 
 var index = require('./routes/index');
-var task = require('./routes/tasks');
+var task = require('./routes/task');
 
 var register = require('./routes/register');
 var authenticate = require('./routes/authenticate');
 
 var mongojs = require('mongojs');
-var db = mongojs(config.database, ['tasks']);
-
-/*
-var dbz = mongojs(config.database,[]);
-
-var users = dbz.collection('users');
-users.drop((e,r)=>{console.log('ssss:',e,r)});
-
-dbz.getCollectionNames(function(e, cols) {
-    cols.forEach(function(col) {
-        console.log(col);
-    });
-});
-*/
 
 var app = express();
 var port = 3000;
@@ -78,31 +63,3 @@ app.use('/register', index);
 app.listen(port, function () {
     console.log('Server started on port ' + port);
 })
-
-db.tasks.count(function (err, result) {
-    if (result == 0) {
-        var parsedJSON = require('./tasks.collection');
-        db.tasks.insert(parsedJSON);
-    }
-});
-
-User.findOne({ role: 'Admin' }, function (err, result) {
-    if (!result) {
-        {
-            var newUser = new User({
-                username: config.admin.username,
-                password: config.admin.password,
-                role: config.admin.role
-            });
-
-            // Attempt to save the new admin
-            newUser.save(function (err) {
-                if (err) {
-                    if (err) throw err;
-                } else {
-                    console.log('Successfully created new admin.')
-                }
-            })
-        }
-    }
-});

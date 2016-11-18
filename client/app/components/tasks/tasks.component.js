@@ -35,7 +35,7 @@ var TasksComponent = (function () {
     TasksComponent.prototype.deleteTask = function (id) {
         var tasks = this.tasks;
         this.taskService.deleteTask(id).subscribe(function (data) {
-            if (data.n == 1) {
+            if (data) {
                 for (var i = 0; i < tasks.length; i++) {
                     if (tasks[i]._id == id) {
                         tasks.splice(i, 1);
