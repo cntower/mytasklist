@@ -6,7 +6,8 @@
   System.config({
     paths: {
       // paths serve as alias
-      'npm:': 'node_modules/'
+      'npm:': 'node_modules/',
+      'npm2:': 'node_modules/'
     },
     // map tells the System loader where to look for things
     map: {
@@ -24,7 +25,12 @@
       // other libraries
       'rxjs':                      'npm:rxjs',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api',
-      'angular2-jwt': 'node_modules/angular2-jwt/angular2-jwt.js'      
+      'angular2-jwt': 'node_modules/angular2-jwt/angular2-jwt.js',
+      '@angular2-material/core':'npm2:@angular2-material/core/core.umd.js',
+      '@angular2-material/card':'npm2:@angular2-material/card/card.umd.js',
+      '@angular2-material/button':'npm2:@angular2-material/button/button.umd.js',
+      '@angular2-material/icon':'npm2:@angular2-material/icon/icon.umd.js'
+            
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {

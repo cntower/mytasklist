@@ -21,6 +21,9 @@ var task_service_1 = require('./services/task.service');
 var login_component_1 = require('./components/login/login.component');
 var register_component_1 = require('./components/register/register.component');
 var home_component_1 = require('./components/home/home.component');
+var card_1 = require('@angular2-material/card');
+var button_1 = require('@angular2-material/button');
+var icon_1 = require('@angular2-material/icon');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -30,7 +33,10 @@ var AppModule = (function () {
                 platform_browser_1.BrowserModule,
                 forms_1.FormsModule,
                 http_1.HttpModule,
-                app_routing_1.routing
+                app_routing_1.routing,
+                card_1.MdCardModule,
+                button_1.MdButtonModule,
+                icon_1.MdIconModule
             ],
             declarations: [
                 app_component_1.AppComponent,
@@ -42,7 +48,8 @@ var AppModule = (function () {
             providers: [
                 auth_guard_1.AuthGuard,
                 authentification_service_1.AuthenticationService,
-                task_service_1.TaskService
+                task_service_1.TaskService,
+                icon_1.MdIconRegistry
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 

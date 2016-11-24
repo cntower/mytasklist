@@ -15,15 +15,21 @@ import { TaskService } from './services/task.service';
 
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-
 import { HomeComponent } from './components/home/home.component';
+
+import { MdCardModule } from '@angular2-material/card';
+import { MdButtonModule } from '@angular2-material/button';
+import { MdIconModule, MdIconRegistry } from '@angular2-material/icon';
 
 @NgModule({
     imports: [
         BrowserModule,
         FormsModule,
         HttpModule,
-        routing
+        routing,
+        MdCardModule,
+        MdButtonModule,
+        MdIconModule
     ],
     declarations: [
         AppComponent,
@@ -35,7 +41,8 @@ import { HomeComponent } from './components/home/home.component';
     providers: [
         AuthGuard,
         AuthenticationService,
-        TaskService
+        TaskService,
+        MdIconRegistry
     ],
     bootstrap: [AppComponent]
 })
