@@ -9,7 +9,7 @@ var jwt = require('jsonwebtoken');
 var config = require('./config/main');
 
 var index = require('./routes/index');
-var task = require('./routes/task');
+var task = require('./routes/tasks');
 
 var register = require('./routes/register');
 var authenticate = require('./routes/authenticate');
@@ -60,6 +60,28 @@ app.use('/auth', authenticate);
 app.use('/login', index);
 app.use('/register', index);
 
-app.listen(port, function () {
+app.use(logErrors)
+app.use(clientErrorHandler)
+app.use(errorHandler)
+
+function logErrors (err, req, res, next) {
+  console.error(err.stack)
+  next(err)
+}
+
+function clientErrorHandler (err, req, res, next) {
+  if (req.xhr) {
+    res.status(500).send({ error: 'Something failed!' })
+  } else {
+    next(err)
+  }
+}
+
+function errorHandler (err, req, res, next) {
+  res.status(500)
+  res.render('error', { error: err })
+}
+
+app.listen(port, ()=> {
     console.log('Server started on port ' + port);
 })

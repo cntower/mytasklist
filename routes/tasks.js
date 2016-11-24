@@ -14,11 +14,11 @@ var token = new Token();
 router.get('/tasks', (req, res, next) => {
     token.verify(req, (err, decoded) => {
         if (err) {
-            res.send(err);
+            next(err);
         } else {
             Task.find({ author: decoded._doc._id }, (err, tasks) => {
                 if (err) {
-                    res.send(err);
+                    next(err);
                 } else {
                     res.json(tasks);
                     
@@ -34,12 +34,14 @@ router.get('/tasks', (req, res, next) => {
 router.get('/task/:id', (req, res, next) => {
     token.verify(req, (err, decoded) => {
         if (err) {
-            res.send(err);
+            next(err);
         } else {
             Task.findOne({ _id: req.params.id, author: decoded._doc._id }, (err, task) => {
                 if (err) {
-                    res.send(err);
-                } else res.json(task);
+                    next(err);
+                } else {
+                    res.json(task);
+                }
             });
         }
     })
@@ -56,7 +58,7 @@ router.post('/task', (req, res, next) => {
     } else {
         token.verify(req, (err, decoded) => {
             if (err) {
-                res.send(err);
+                next(err);
             } else {
                 var newTask = new Task({
                     title: task.title,
@@ -66,7 +68,7 @@ router.post('/task', (req, res, next) => {
                 // Attempt to save the new task
                 newTask.save((err, task, next) => {
                     if (err) {
-                        res.send(err);
+                        next(err);
                     } else {
                         res.json(task);
                     }
@@ -81,11 +83,11 @@ router.post('/task', (req, res, next) => {
 router.delete('/task/:id', (req, res, next) => {
     token.verify(req, (err, decoded) => {
         if (err) {
-            res.send(err);
+            next(err);
         } else {
             Task.findOneAndRemove({ _id: req.params.id, author: decoded._doc._id }, (err, task) => {
                 if (err) {
-                    res.send(err);
+                    next(err);
                 } else {
                     res.json(task);
                 }
@@ -98,7 +100,7 @@ router.delete('/task/:id', (req, res, next) => {
 router.put('/task/:id', (req, res, next) => {
     token.verify(req, (err, decoded) => {
         if (err) {
-            res.send(err);
+            next(err);
         } else {
             Task.findOne({ _id: req.params.id, author: decoded._doc._id }, (err, task) => {
                 if (err) {
@@ -109,7 +111,7 @@ router.put('/task/:id', (req, res, next) => {
                     task.author = decoded._doc._id;
                     task.save((err, task, next) => {
                         if (err) {
-                            res.send(err);
+                            next(err);
                         } else {
                             res.json(task);
                         }
