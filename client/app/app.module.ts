@@ -19,6 +19,9 @@ import { HomeComponent } from './components/home/home.component';
 
 import { MdCardModule } from '@angular2-material/card';
 import { MdButtonModule } from '@angular2-material/button';
+import { MdCheckboxModule } from '@angular2-material/checkbox';
+import { MdGridListModule } from '@angular2-material/grid-list';
+import { MdInputModule } from '@angular2-material/input';
 import { MdIconModule, MdIconRegistry } from '@angular2-material/icon';
 
 @NgModule({
@@ -29,7 +32,10 @@ import { MdIconModule, MdIconRegistry } from '@angular2-material/icon';
         routing,
         MdCardModule,
         MdButtonModule,
-        MdIconModule
+        MdIconModule,
+        MdCheckboxModule,
+        MdGridListModule,
+        MdInputModule
     ],
     declarations: [
         AppComponent,

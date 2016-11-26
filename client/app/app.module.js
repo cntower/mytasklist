@@ -23,6 +23,9 @@ var register_component_1 = require('./components/register/register.component');
 var home_component_1 = require('./components/home/home.component');
 var card_1 = require('@angular2-material/card');
 var button_1 = require('@angular2-material/button');
+var checkbox_1 = require('@angular2-material/checkbox');
+var grid_list_1 = require('@angular2-material/grid-list');
+var input_1 = require('@angular2-material/input');
 var icon_1 = require('@angular2-material/icon');
 var AppModule = (function () {
     function AppModule() {
@@ -36,7 +39,10 @@ var AppModule = (function () {
                 app_routing_1.routing,
                 card_1.MdCardModule,
                 button_1.MdButtonModule,
-                icon_1.MdIconModule
+                icon_1.MdIconModule,
+                checkbox_1.MdCheckboxModule,
+                grid_list_1.MdGridListModule,
+                input_1.MdInputModule
             ],
             declarations: [
                 app_component_1.AppComponent,

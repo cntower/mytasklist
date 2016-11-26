@@ -29,7 +29,11 @@
       '@angular2-material/core':'npm2:@angular2-material/core/core.umd.js',
       '@angular2-material/card':'npm2:@angular2-material/card/card.umd.js',
       '@angular2-material/button':'npm2:@angular2-material/button/button.umd.js',
-      '@angular2-material/icon':'npm2:@angular2-material/icon/icon.umd.js'
+      '@angular2-material/icon':'npm2:@angular2-material/icon/icon.umd.js',
+      '@angular2-material/checkbox':'npm2:@angular2-material/checkbox/checkbox.umd.js',
+      '@angular2-material/grid-list':'npm2:@angular2-material/grid-list/grid-list.umd.js',
+      '@angular2-material/input':'npm2:@angular2-material/input/input.umd.js',
+      
             
     },
     // packages tells the System loader how to load when no filename and/or no extension

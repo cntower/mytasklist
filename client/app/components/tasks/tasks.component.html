@@ -1,24 +1,20 @@
 <form class="" (submit)="addTask($event)">
-	<div class="form-group">
-		<input type="text" [(ngModel)]="title" name="title" class="form-control" placeholder="Add Task">
-	</div>
+	<md-input [(ngModel)]="title" class="demo-full-width" style="width: 100%" name="title" placeholder="Add Task">
+	</md-input>
 </form>
 
 <div class="task-list">
-	<div *ngFor='let task of tasks'>
-		<div class="col-md-1">
-			<input type="checkbox" [checked]="task.isDone" (click)="updateStatus(task)">
-		</div>
-		<div class="col-md-7">
-			{{task.title}}
-		</div>
-		<div class="col-md-4">
-			<input type="button" (click)="deleteTask(task._id)" value="Delete" class="btn btn-sm">
-		</div>
-		<br><br>
-		<md-card>
-			<button md-button>Basic Button</button>
-			<button md-raised-button>Raised Button</button>
-		</md-card>
-	</div>
+	<md-card *ngFor='let task of tasks'>
+		<md-grid-list cols="7" rowHeight="30px">
+			<md-grid-tile colspan="1">
+				<md-checkbox [checked]="task.isDone" (click)="updateStatus(task)"></md-checkbox>
+			</md-grid-tile>
+			<md-grid-tile colspan="5">
+				{{task.title}}
+			</md-grid-tile>
+			<md-grid-tile colspan="1">
+				<button md-button (click)="deleteTask(task._id)">Delete</button>
+			</md-grid-tile>
+		</md-grid-list>
+	</md-card>
 </div>
