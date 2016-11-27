@@ -29,3 +29,12 @@ $ npm start
 $ cd mytasklist/client/
 $ npm start
 ```
+## Author
+
+**Stanislav Baturin**
+
+* Facebook: [@Stanislav Baturin](https://www.facebook.com/profile.php?id=100001689399764)
+
+## License
+
+- This code is licensed under the MIT License.
